@@ -49,5 +49,5 @@ struct CardData {
     )
     print("Real is Done")
     
-    print(response.content)
+//    print(response.content)
 }
