@@ -1,0 +1,63 @@
+//
+//  GalleryView.swift
+//  Pictu
+//
+//  Created by Aulia Nadhirah Yasmin Badrulkamal on 10/09/26.
+//
+
+import SwiftUI
+
+struct GalleryView : View {
+    var isCardEmpty : Bool = true
+    let columns = [GridItem(.fixed(175)), GridItem(.fixed(175))]
+    
+    var body: some View {
+        ZStack{
+            Color("WarmWhite")
+                .ignoresSafeArea()
+            if isCardEmpty {
+                Text("You don’t have any card yet,\npull a card!")
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .tracking(1)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(Color("Cream"))
+            } else {
+                ScrollView(.vertical){
+                    LazyVGrid(columns: columns){
+                        ForEach(0...4, id: \.self) {_ in
+                            CardPreview()
+                        }
+                    }
+                }
+            }
+        }
+        .navigationBarBackButtonHidden(true)
+        .toolbar{
+            ToolbarItem(placement: .principal) {
+                Text("☆*:.｡ PICTU ｡.:*☆")
+                    .tracking(1)
+                    .font(.system(size: 30, weight: .black, design: .rounded))
+                    .foregroundStyle(Color("WarmBrown"))
+                    .padding(.top)
+            }
+            ToolbarItemGroup(placement: .bottomBar) {
+                Spacer()
+                NavigationLink(destination: CameraView().tint(Color("WarmBrown"))){
+                    Text("Pull a card")
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .tracking(1)
+                        .padding(8)
+                }
+                .buttonStyle(.glassProminent)
+                .tint(Color("WarmBrown"))
+                Spacer()
+            }
+        }
+    }
+}
+
+#Preview {
+    NavigationStack{
+        GalleryView()
+    }
+}
