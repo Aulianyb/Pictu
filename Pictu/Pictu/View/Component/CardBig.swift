@@ -9,9 +9,9 @@ import SwiftUI
 
 struct CardBig: View {
     var body: some View {
-        Rectangle()
-            .foregroundStyle(Color(.systemBlue))
+        Image("TestCard")
+            .resizable()
+            .scaledToFit()
             .frame(width: 326, height: 452)
-            .cornerRadius(20)
     }
 }

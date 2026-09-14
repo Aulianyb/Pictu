@@ -16,6 +16,7 @@ struct ContentView: View {
         NavigationStack {
             GalleryView()
         }
+        .tint(Color("Brown"))
     }
 }
 

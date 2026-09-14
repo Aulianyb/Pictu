@@ -26,18 +26,26 @@ struct GalleryView : View {
                     }
             }
         }
+        .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .principal) {
-                Text("PICTU")
-                    .font(Font.largeTitle.bold())  
+                Text("☆*:.｡ PICTU ｡.:*☆")
+                    .tracking(1)
+                    .font(.system(size: 30, weight: .black, design: .rounded))
+                    .foregroundStyle(Color("WarmBrown"))
+                    .padding(.top)
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
-                NavigationLink(destination: CameraView()){
+                NavigationLink(destination: CameraView().tint(Color("WarmBrown"))){
                     Text("Pull a card")
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .tracking(1)
                         .padding(8)
-                }.buttonStyle(.glassProminent)
+                }
+                .buttonStyle(.glassProminent)
+                .tint(Color("WarmBrown"))
                 Spacer()
             }
         }

@@ -10,10 +10,10 @@ import SwiftUI
 struct CardPreview: View {
     var body: some View {
         NavigationLink(destination: DetailView()) {
-            Rectangle()
-                .foregroundStyle(Color(.systemBlue))
+            Image("TestCard")
+                .resizable()
+                .scaledToFit()
                 .frame(width: 175, height: 242)
-                .cornerRadius(20)
         }
     }
 }

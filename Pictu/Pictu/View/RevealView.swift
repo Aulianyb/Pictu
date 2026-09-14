@@ -8,27 +8,34 @@
 import SwiftUI
 
 struct RevealView : View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
-        Group {
-            ZStack {
-                CardBig()
-            }
+        ZStack {
+            Color("WarmWhite")
+            .ignoresSafeArea()
+            CardBig()
         }
+        .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement:.topBarLeading) {
                 Button{
-                    
+                    dismiss()
                 } label: {
                     Image(systemName: "xmark")
                 }
+                .tint(Color("WarmBrown"))
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
                 NavigationLink(destination: GalleryView()){
                     Text("Collect")
                         .padding(8)
-                }.buttonStyle(.glassProminent)
+                }
+                .font(.system(size: 17, weight: .medium, design: .rounded))
+                .buttonStyle(.glassProminent)
+                .tint(Color("WarmBrown"))
                 Spacer()
             }
         }
