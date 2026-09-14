@@ -8,25 +8,29 @@
 import SwiftUI
 
 struct GalleryView : View {
-    var isCardEmpty : Bool = false
+    var isCardEmpty : Bool = true
     let columns = [GridItem(.fixed(175)), GridItem(.fixed(175))]
     
     var body: some View {
-        Group{
+        ZStack{
+            Color("WarmWhite")
+                .ignoresSafeArea()
             if isCardEmpty {
-                Text("Card Empty")
+                Text("You don’t have any card yet,\npull a card!")
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .tracking(1)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(Color("Cream"))
             } else {
-                    ScrollView(.vertical){
-                        LazyVGrid(columns: columns){
-                            ForEach(0...4, id: \.self) {_ in
-                                CardPreview()
-                                
-                            }
+                ScrollView(.vertical){
+                    LazyVGrid(columns: columns){
+                        ForEach(0...4, id: \.self) {_ in
+                            CardPreview()
                         }
                     }
+                }
             }
         }
-        .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)
         .toolbar{
             ToolbarItem(placement: .principal) {
