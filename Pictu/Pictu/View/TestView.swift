@@ -9,18 +9,59 @@ import SwiftUI
 import FoundationModels
 import UIKit
 
-@Generable
-enum cardTypes {
-    case human
-    case animal
-    case object
-    case location
-    case unknown
-}
+//var id : UUID
+//var title : String
+//var type : CardType
+//var rarity : CardRarity
+//var abilityName : String
+//var abilityDescription : String
+//var imageFileName: String
 
-struct ImageClassification {
-    var description: String
-    var label: CardType
+@Generable
+struct TradingCardInfo {
+    @Guide(description: """
+    Classify photos by their primary subject using these exact definitions:
+    - human: one or more people are the focus (selfies, portraits, group photos)
+    - animal: an animal is the focus
+    - object: a single inanimate item or product is the focus
+    - location: a place, room, building, or landscape is shown, with no single person/object as the focus
+    - unknown: none of the above clearly applies
+    Always pick the label that matches the image's actual main subject.
+        
+    """)
+    var type: CardType
+
+    @Guide(description: """
+    A critical assessment of this photo's visual composition and craft — NOT the \
+    subject's inherent interest. Note framing, pose/silhouette, lighting, and whether \
+    the shot feels curated versus a random snapshot. 1-2 sentences.
+    """)
+    var compositionAssessment: String
+
+    @Guide(description: """
+    The card's rarity, based strictly on compositionAssessment above, judged by criteria \
+    specific to type:
+    - human: strong pose, expression, framing, lighting → higher. Awkward/flat/blurry → common.
+    - animal: distinct silhouette or action pose, engaging eye contact or motion, \
+    clean separation from background, well-exposed lighting → higher rarity
+    - object: deliberate angle, lighting, sense of scale → higher. Flat tabletop shot → common.
+    - location: strong depth/leading lines, notable light, clear focal point → higher.
+    Scale: common (unremarkable snapshot) < rainbow (clearly intentional) < prism (exceptional).
+    Default to common unless compositionAssessment clearly shows rainbow/prism-level craft.
+    """)
+    var rarity: CardRarity
+
+    @Guide(description: "A short, evocative title for the trading card, 2-4 words.")
+    var title: String
+
+    @Guide(description: "A punchy name for the card's special ability, 1-3 words.")
+    var abilityName: String
+
+    @Guide(description: """
+    A vivid, game-flavor description of the ability, 1-2 sentences. Tie its power to \
+    rarity — common abilities feel modest, prism abilities feel powerful.
+    """)
+    var abilityDescription: String
 }
 
 func testClassification(imageName : String) async throws -> String {
@@ -32,62 +73,41 @@ func testClassification(imageName : String) async throws -> String {
     }
 
     do {
-        let result = try await classifyImage(cgImage)
+        let result = try await generateCard(from: cgImage, imageFileName: "testAnimal")
         print("Test success")
-        return result
+        return "\(result.title)\n\(result.abilityName)\n\(result.abilityDescription)\n\(result.rarity)\n\(result.type)\n"
     } catch {
         return "Classification failed with error: \(error)"
     }
 }
 
-func classifyImage(_ image: CGImage) async throws -> String {
+func generateCard(from image: CGImage, imageFileName: String) async throws -> TradingCard {
     let session = LanguageModelSession(
-    instructions:
-    """
-    You are an expert image analyst and trading card creator.
-    Analyze images thoroughly and accurately and then create a trading card based on that image.
-    """
+        instructions: """
+        You are an expert image analyst and trading card creator. \
+        Analyze images thoroughly and accurately, then create a trading card based on the image.
+        """
     )
+
     let response = try await session.respond(
-        generating: cardTypes.self,
+        generating: TradingCardInfo.self,
         options: GenerationOptions(samplingMode: .greedy)
     ) {
-         """
-            Classify photos by their primary subject using these exact definitions:
-            - human: one or more people are the focus (selfies, portraits, group photos)
-            - animal: an animal is the focus
-            - object: a single inanimate item or product is the focus
-            - location: a place, room, building, or landscape is shown, with no single person/object as the focus
-            - unknown: none of the above clearly applies
-            Always pick the label that matches the image's actual main subject.
-        """
-        
+        "Create trading card details for this image."
         if #available(iOS 27.0, *) {
             Attachment(image)
-        } else {
-            // Fallback on earlier versions
         }
     }
-    print(response.content)
-    
-    let response2 = try await session.respond {
-           """
-            A detailed, verbose description of the image — at least 4-5 sentences. \
-            Cover the main subject, setting/background, notable colors or details, \
-            and explicitly mention whether a person, animal, object, or place is the focus.
-            """
-           
-            if #available(iOS 27.0, *) {
-                Attachment(image)
-            } else {
-                // Fallback on earlier versions
-            }
-       }
-    
-    print(response2.content)
-    
-    return(
-        "\(response.content)\n\(response2.content)"
+
+    let info = response.content
+
+    return TradingCard(
+        title: info.title,
+        type: info.type,
+        rarity: info.rarity,
+        abilityName: info.abilityName,
+        abilityDescription: info.abilityDescription,
+        imageFileName: imageFileName
     )
 }
 

@@ -18,7 +18,8 @@ final class TradingCard {
     var abilityDescription : String
     var imageFileName: String
     
-    init(id: UUID = UUID(), title: String, type: CardType, rarity: CardRarity, abilityName: String, abilityDescription: String, imageFileName: String) {
+    init(
+        id: UUID = UUID(), title: String, type: CardType, rarity: CardRarity, abilityName: String, abilityDescription: String, imageFileName: String) {
         self.id = UUID()
         self.title = title
         self.type = type

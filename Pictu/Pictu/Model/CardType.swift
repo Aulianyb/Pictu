@@ -4,11 +4,13 @@
 //
 //  Created by Aulia Nadhirah Yasmin Badrulkamal on 14/09/26.
 //
+import FoundationModels
 
+@Generable
 enum CardType: String, Codable, CaseIterable {
-    case person
+    case human
     case location
-    case prism
+    case object
     case animal
     case unknown
 }
