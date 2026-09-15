@@ -16,28 +16,24 @@ import FoundationModels
 import Playgrounds
 import CoreGraphics
 
-@Generable
-enum cardTypes {
-    case human
-    case animal
-    case object
-    case location
-}
-
 #Playground {
     let session = LanguageModelSession()
 // I HAVE TO WAIT UNTIL 2 DAYS LEFT!!!!!!
-//    func classifyImage(_ image: CGImage) async throws -> cardTypes {
-//        let response = try await session.respond(
-//            generating: cardTypes.self,
-//            options: GenerationOptions(sampling: .greedy)
-//        ) {
-//            "Choose the label that best represents the following image:"
-//            
-//            Attachment(image)
-//        }
-//        return response.conten
-//    }
+    func classifyImage(_ image: CGImage) async throws -> cardTypes {
+        let response = try await session.respond(
+            generating: cardTypes.self,
+            options: GenerationOptions(samplingMode: .greedy)
+        ) {
+            "Choose the label that best represents the following image:"
+            
+            if #available(iOS 27.0, *) {
+                Attachment(image)
+            } else {
+                // Fallback on earlier versions
+            }
+        }
+        return response.content
+    }
     
     print("Backup is running")
     

@@ -50,6 +50,12 @@ struct GalleryView : View {
                 }
                 .buttonStyle(.glassProminent)
                 .tint(Color("WarmBrown"))
+                NavigationLink(destination: TestView().tint(Color("WarmBrown"))){
+                    Text("Testing page")
+                        .font(.system(size: 17, weight: .medium, design: .rounded))
+                        .tracking(1)
+                        .padding(8)
+                }
                 Spacer()
             }
         }
