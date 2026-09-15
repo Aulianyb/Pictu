@@ -9,14 +9,13 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
-//    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext) private var modelContext
     @State private var path = NavigationPath()
 
     var body: some View {
         NavigationStack {
             GalleryView()
         }
-        .tint(Color("Brown"))
     }
 }
 

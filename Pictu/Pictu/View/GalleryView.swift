@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct GalleryView : View {
-    var isCardEmpty : Bool = true
+    var isCardEmpty : Bool = false
     let columns = [GridItem(.fixed(175)), GridItem(.fixed(175))]
     
     var body: some View {
