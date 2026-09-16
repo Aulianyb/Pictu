@@ -14,7 +14,10 @@ struct DetailView: View {
         ZStack{
             Color("WarmWhite")
             .ignoresSafeArea()
-            CardBig()
+            Image("TestCard")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 326, height: 452)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {

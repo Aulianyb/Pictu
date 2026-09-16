@@ -6,6 +6,8 @@
 //
 
 import SwiftUI
+import SwiftData
+
 enum CardFlowStage {
     case capturing
     case processing
@@ -15,6 +17,7 @@ enum CardFlowStage {
 
 struct CardFlowManager: View {
     @State private var stage: CardFlowStage = .capturing
+    @Environment(\.modelContext) private var context
     
     var body: some View {
         switch stage {

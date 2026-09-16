@@ -6,9 +6,11 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct RevealView : View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.modelContext) private var context
     let shownCard : TradingCard
     let item : IdentifiableImage
     
@@ -16,19 +18,19 @@ struct RevealView : View {
         ZStack {
             Color("WarmWhite")
             .ignoresSafeArea()
-//            CardBig()
-            VStack{
-                Image(uiImage : item.image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 200)
-                Text(shownCard.imageFileName)
-                Text(shownCard.title)
-                Text(shownCard.type.displayName)
-                Text(shownCard.rarity.displayName)
-                Text(shownCard.abilityName)
-                Text(shownCard.abilityDescription)
-            }
+            CardBig(shownCard: shownCard)
+//            VStack{
+//                Image(uiImage : item.image)
+//                    .resizable()
+//                    .scaledToFit()
+//                    .frame(width: 200)
+//                Text(shownCard.imageFileName)
+//                Text(shownCard.title)
+//                Text(shownCard.type.displayName)
+//                Text(shownCard.rarity.displayName)
+//                Text(shownCard.abilityName)
+//                Text(shownCard.abilityDescription)
+//            }
         }
         .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)
@@ -47,6 +49,10 @@ struct RevealView : View {
                     Text("Collect")
                         .padding(8)
                 }
+                .simultaneousGesture(TapGesture().onEnded {
+                    print("I'm being triggered")
+                    saveCard(context: context, image: item.image, fileName: shownCard.imageFileName, card: shownCard)
+                })
                 .font(.system(size: 17, weight: .medium, design: .rounded))
                 .buttonStyle(.glassProminent)
                 .tint(Color("WarmBrown"))
@@ -67,7 +73,7 @@ struct RevealView : View {
     )
     
     // Safely unwrap using a standard SF Symbol as a fallback
-    let safeImage = UIImage(systemName: "pawprint.fill") ?? UIImage(systemName: "photo")!
+    let safeImage = UIImage(systemName: "TestAnimal") ?? UIImage(systemName: "photo")!
     let imagePlaceholder = IdentifiableImage(image: safeImage)
     
     return NavigationStack {

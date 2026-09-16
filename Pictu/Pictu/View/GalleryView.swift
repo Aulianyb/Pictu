@@ -6,16 +6,17 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct GalleryView : View {
-    var isCardEmpty : Bool = false
+    @Query(sort: \TradingCard.title) private var cards: [TradingCard]
     let columns = [GridItem(.fixed(175)), GridItem(.fixed(175))]
     
     var body: some View {
         ZStack{
             Color("WarmWhite")
                 .ignoresSafeArea()
-            if isCardEmpty {
+            if cards.isEmpty {
                 Text("You don’t have any card yet,\npull a card!")
                     .font(.system(size: 18, weight: .medium, design: .rounded))
                     .tracking(1)
@@ -24,7 +25,7 @@ struct GalleryView : View {
             } else {
                 ScrollView(.vertical){
                     LazyVGrid(columns: columns){
-                        ForEach(0...4, id: \.self) {_ in
+                        ForEach(cards) { card in
                             CardPreview()
                         }
                     }
