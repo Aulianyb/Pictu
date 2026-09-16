@@ -10,7 +10,12 @@ import SwiftData
 
 func createCard(from image: UIImage, title: String, abilityName: String, abilityDescription: String, type: CardType, rarity: CardRarity, context: ModelContext) {
     let fileName = "card_\(UUID().uuidString).jpg"
-    try? CardImageStore.save(image, fileName: fileName)
+    do {
+        try CardImageStore.save(image, fileName: fileName)
+        print("✅ Successfully saved image at: \(fileName)")
+    } catch {
+        print("❌ Failed to save image: \(error.localizedDescription)")
+    }
 
     let card = TradingCard(
         title: title,

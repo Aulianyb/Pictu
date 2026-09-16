@@ -11,6 +11,7 @@ import AVKit
 
 struct CameraView: View {
     @StateObject private var cameraManager = CameraManager()
+    let onCapture: (IdentifiableImage) -> Void
     
     var body: some View {
 //        VStack{
@@ -71,9 +72,13 @@ struct CameraView: View {
             }
             .sheet(item: $cameraManager.capturedImage) { image in
                 // Wrap UIImage in Identifiable for sheet binding
-                PhotoPreviewView(item: image, onDismiss: {
+                PhotoPreviewView(
+                    item: image,
+                    onDismiss: {
                     cameraManager.capturedImage = nil
-                })
+                    },
+                    onCapture: onCapture
+                )
             }
         }
         .onAppear {

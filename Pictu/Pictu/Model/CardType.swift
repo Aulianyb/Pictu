@@ -14,3 +14,15 @@ enum CardType: String, Codable, CaseIterable {
     case animal
     case unknown
 }
+
+extension CardType {
+    var displayName: String {
+        switch self {
+        case .human: return "Human"
+        case .animal: return "Animal"
+        case .object: return "Object"
+        case .location: return "Location"
+        case .unknown: return "Unknown"
+        }
+    }
+}

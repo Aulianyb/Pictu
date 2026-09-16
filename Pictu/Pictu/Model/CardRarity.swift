@@ -12,3 +12,13 @@ enum CardRarity: String, Codable, CaseIterable {
     case rainbow
     case prism
 }
+
+extension CardRarity {
+    var displayName: String {
+        switch self {
+        case .common: return "Common"
+        case .rainbow: return "Rainbow"
+        case .prism: return "Prism"
+        }
+    }
+}

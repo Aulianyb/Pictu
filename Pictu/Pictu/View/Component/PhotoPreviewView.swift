@@ -10,6 +10,7 @@ import SwiftUI
 struct PhotoPreviewView: View {
     let item: IdentifiableImage
     let onDismiss: () -> Void
+    let onCapture: (IdentifiableImage) -> Void
     
     var body: some View {
         VStack(spacing: 0) {
@@ -21,8 +22,8 @@ struct PhotoPreviewView: View {
                 
                 Spacer()
                 
-                Button("Save") {
-                    UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil)
+                Button("Create Card") {
+                    onCapture(item)
                     onDismiss()
                 }
                 .padding()

@@ -42,7 +42,7 @@ struct GalleryView : View {
             }
             ToolbarItemGroup(placement: .bottomBar) {
                 Spacer()
-                NavigationLink(destination: CameraView().tint(Color("WarmBrown"))){
+                NavigationLink(destination: CardFlowManager().tint(Color("WarmBrown"))){
                     Text("Pull a card")
                         .font(.system(size: 17, weight: .medium, design: .rounded))
                         .tracking(1)
@@ -50,12 +50,12 @@ struct GalleryView : View {
                 }
                 .buttonStyle(.glassProminent)
                 .tint(Color("WarmBrown"))
-                NavigationLink(destination: TestView().tint(Color("WarmBrown"))){
-                    Text("Testing page")
-                        .font(.system(size: 17, weight: .medium, design: .rounded))
-                        .tracking(1)
-                        .padding(8)
-                }
+//                NavigationLink(destination: TestView().tint(Color("WarmBrown"))){
+//                    Text("Testing page")
+//                        .font(.system(size: 17, weight: .medium, design: .rounded))
+//                        .tracking(1)
+//                        .padding(8)
+//                }
                 Spacer()
             }
         }
