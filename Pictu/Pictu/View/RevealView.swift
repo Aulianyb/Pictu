@@ -18,7 +18,8 @@ struct RevealView : View {
         ZStack {
             Color("WarmWhite")
             .ignoresSafeArea()
-            CardBig(shownCard: shownCard)
+            CardBig(shownCard: shownCard, cardImage: item.image)
+                .shadow(color: Color("WarmBrown").opacity(0.2), radius: 10, x: 0, y: 0)
 //            VStack{
 //                Image(uiImage : item.image)
 //                    .resizable()
@@ -65,10 +66,10 @@ struct RevealView : View {
 #Preview {
     let card = TradingCard(
         title: "title here",
-        type: .animal,
+        type: .object,
         rarity: .prism,
         abilityName: "abilityName here",
-        abilityDescription: "abilityDescription here",
+        abilityDescription: "Exhaust this Land to gain 1 Mana of any color. Friendly Creatures summoned this turn gain +1 Attack and +1 Speed as long as they remain on the battlefield.",
         imageFileName: "uhh uhh imageName"
     )
     

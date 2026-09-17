@@ -42,15 +42,19 @@ struct TradingCardInfo {
     """)
     var rarity: CardRarity
 
-    @Guide(description: "A short, evocative title for the trading card, 2-4 words.")
+    @Guide(description: "A short, evocative title for the trading card, 1-2 words and all capital.")
     var title: String
 
-    @Guide(description: "A punchy name for the card's special ability, 1-3 words.")
+    @Guide(description: "A punchy name for the card's special ability, 1-3 words and all capital.")
     var abilityName: String
 
     @Guide(description: """
-    A vivid, game-flavor description of the ability, 1-2 sentences. Tie its power to \
-    rarity — common abilities feel modest, prism abilities feel powerful.
+    A vivid, game-flavor description of the ability, 1 sentence. Tie its power to \
+    rarity — common abilities feel modest, prism abilities feel powerful. \
+    Example 1 : Deal one extra hit, if your turn, may initiate a battle. \
+    Example 2 : Remove up to three of your warriors fromt he map and place them in any clearing \
+    Example 3 : Heal 30 health points and feel refreshed next turn \
+    Avoid using too abstract descriptions and word it like an actual trading card game description
     """)
     var abilityDescription: String
 }

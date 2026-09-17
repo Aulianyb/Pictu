@@ -26,7 +26,7 @@ struct GalleryView : View {
                 ScrollView(.vertical){
                     LazyVGrid(columns: columns){
                         ForEach(cards) { card in
-                            CardPreview()
+                            CardPreview(shownCard: card)
                         }
                     }
                 }
