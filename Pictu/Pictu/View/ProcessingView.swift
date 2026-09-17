@@ -13,37 +13,32 @@ struct ProcessingView : View {
         ZStack {
             Color("WarmWhite")
                 .ignoresSafeArea()
-            VStack{
-                Spacer()
-                ZStack{
-                    ParticleShakeView()
-                    RoundedRectangle(cornerRadius: 20)
-                        .frame(width: 326, height: 460)
-                        .scaleEffect(0.3)
-                        .rotationEffect(.degrees(isShaking ? 4 : -4))
-                        .offset(x: isShaking ? 3 : -3)
-                        .animation(
-                            .spring(duration: 0.1, bounce: 0.1)
-                            .repeatForever(autoreverses: true),
-                            value: isShaking
-                        )
-                        .onAppear {
-                            isShaking = true
-                        }
+            ParticleShakeView()
+            RoundedRectangle(cornerRadius: 20)
+                .frame(width: 326, height: 460)
+                .scaleEffect(0.3)
+                .rotationEffect(.degrees(isShaking ? 4 : -4))
+                .offset(x: isShaking ? 3 : -3)
+                .animation(
+                    .spring(duration: 0.1, bounce: 0.1)
+                    .repeatForever(autoreverses: true),
+                    value: isShaking
+                )
+                .onAppear {
+                    isShaking = true
                 }
 //                .border(.landText)
-                VStack(spacing:8){
-                    Text("MAKING YOUR CARD...")
-                        .tracking(1)
-                        .font(.system(size: 24, weight: .bold, design: .rounded))
-                        .padding(.top)
-                    Text("Tip : this is a work in progress,\nthere will be a better loading screen later")
-                        .multilineTextAlignment(.center)
-                        .tracking(1)
-                        .font(.system(size: 17, weight: .light, design: .rounded))
-                }
-                Spacer()
+            VStack(spacing:8){
+                Text("MAKING YOUR CARD...")
+                    .tracking(1)
+                    .font(.system(size: 24, weight: .bold, design: .rounded))
+                    .padding(.top)
+                Text("Tip : this is a work in progress,\nthere will be a better loading screen later")
+                    .multilineTextAlignment(.center)
+                    .tracking(1)
+                    .font(.system(size: 17, weight: .light, design: .rounded))
             }
+            .offset(y:200)
         }
         .foregroundStyle(Color("Cream"))
         .navigationBarBackButtonHidden(true)

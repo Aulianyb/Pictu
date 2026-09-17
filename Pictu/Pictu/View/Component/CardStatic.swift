@@ -1,26 +1,15 @@
 //
-//  CardBig.swift
+//  CardStatic.swift
 //  Pictu
 //
-//  Created by Aulia Nadhirah Yasmin Badrulkamal on 14/09/26.
+//  Created by Aulia Nadhirah Yasmin Badrulkamal on 17/09/26.
 //
 
 import SwiftUI
 
-
-var foilLayer: some View {
-    LinearGradient(
-        colors: [.red, .orange, .yellow, .green, .blue, .purple, .red],
-        startPoint: .topLeading,
-        endPoint: .bottomTrailing
-    )
-}
-
-struct CardBig: View {
+struct CardStatic: View {
     var shownCard : TradingCard
     var cardImage : UIImage
-    @State var isRevealing : Bool = false
-    @Binding var isShowing : Bool
     
     @State private var dragOffset: CGSize = .zero
     @GestureState private var isDragging = false
@@ -129,7 +118,6 @@ struct CardBig: View {
                 .allowsHitTesting(false)
         }
         .compositingGroup()
-        .scaleEffect(isRevealing ? 1.0 : 0.0)
         .rotation3DEffect(
             .degrees(Double(dragOffset.width/10))
             ,axis: (x:0, y:1, z:0)
@@ -155,12 +143,5 @@ struct CardBig: View {
                     }
             }
         )
-        .onChange(of: isShowing) {
-            if isShowing {
-                withAnimation(.spring(duration: 0.3, bounce: 0.55).delay(0.3)) {
-                    isRevealing = true
-                }
-            }
-        }
     }
 }
