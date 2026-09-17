@@ -20,18 +20,6 @@ struct RevealView : View {
             .ignoresSafeArea()
             CardBig(shownCard: shownCard, cardImage: item.image)
                 .shadow(color: Color("WarmBrown").opacity(0.2), radius: 10, x: 0, y: 0)
-//            VStack{
-//                Image(uiImage : item.image)
-//                    .resizable()
-//                    .scaledToFit()
-//                    .frame(width: 200)
-//                Text(shownCard.imageFileName)
-//                Text(shownCard.title)
-//                Text(shownCard.type.displayName)
-//                Text(shownCard.rarity.displayName)
-//                Text(shownCard.abilityName)
-//                Text(shownCard.abilityDescription)
-//            }
         }
         .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)

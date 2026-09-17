@@ -8,33 +8,44 @@
 import SwiftUI
 
 struct ProcessingView : View {
-    @State private var isRotating = false
+    @State private var isShaking = false
     var body: some View {
         ZStack {
             Color("WarmWhite")
                 .ignoresSafeArea()
-            VStack(spacing:8){
-                Image(systemName: "star.fill")
-                    .font(.system(size: 50))
-                    .rotationEffect(.degrees(isRotating ? 360 : 0))
-                    .animation(
-                        .linear(duration: 0.8).repeatForever(autoreverses: false),
-                        value: isRotating
-                    )
-                    .onAppear {
-                        isRotating = true
-                    }
-                Text("MAKING YOUR CARD...")
-                    .tracking(1)
-                    .font(.system(size: 24, weight: .bold, design: .rounded))
-                    .padding(.top)
-                Text("Tip : this is a work in progress,\nthere will be a better loading screen later")
-                    .multilineTextAlignment(.center)
-                    .tracking(1)
-                    .font(.system(size: 17, weight: .light, design: .rounded))
+            VStack{
+                Spacer()
+                ZStack{
+                    ParticleShakeView()
+                    RoundedRectangle(cornerRadius: 20)
+                        .frame(width: 326, height: 460)
+                        .scaleEffect(0.3)
+                        .rotationEffect(.degrees(isShaking ? 4 : -4))
+                        .offset(x: isShaking ? 3 : -3)
+                        .animation(
+                            .spring(duration: 0.1, bounce: 0.1)
+                            .repeatForever(autoreverses: true),
+                            value: isShaking
+                        )
+                        .onAppear {
+                            isShaking = true
+                        }
+                }
+//                .border(.landText)
+                VStack(spacing:8){
+                    Text("MAKING YOUR CARD...")
+                        .tracking(1)
+                        .font(.system(size: 24, weight: .bold, design: .rounded))
+                        .padding(.top)
+                    Text("Tip : this is a work in progress,\nthere will be a better loading screen later")
+                        .multilineTextAlignment(.center)
+                        .tracking(1)
+                        .font(.system(size: 17, weight: .light, design: .rounded))
+                }
+                Spacer()
             }
         }
-        .foregroundStyle(Color("WarmBrown"))
+        .foregroundStyle(Color("Cream"))
         .navigationBarBackButtonHidden(true)
     }
 }

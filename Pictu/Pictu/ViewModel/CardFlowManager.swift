@@ -39,7 +39,7 @@ struct CardFlowManager: View {
                 let card = try await generateCard(from: image)
                 stage = .revealed(card, image)
             } catch {
-                stage = .failed("Something went wrong. Try again.")
+                stage = .failed("uh oh")
             }
         }
     }
