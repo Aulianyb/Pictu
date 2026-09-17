@@ -13,6 +13,7 @@ struct RevealCard : View {
     @State private var dragOffset: CGSize = .zero
     @State private var hueRotationAngle: Double = 0
     @State private var isExiting = false
+    @State var shownCard : TradingCard
     
     @Binding var isShowing : Bool
     
@@ -24,14 +25,13 @@ struct RevealCard : View {
             ZStack{
                 RoundedRectangle(cornerRadius: 20)
                     .frame(width: 326, height: 460)
-                    .scaleEffect(isExiting ? 0.0 : (isRevealing ? 0.2 : 0.3))
                     .overlay{
                         foilLayer
                             .frame(width: 326, height: 460)
-                            .scaleEffect(isExiting ? 0.0 : (isRevealing ? 0.2 : 0.3))
+                            
                             .hueRotation(.degrees(hueRotationAngle))
                             .blendMode(.softLight)
-                            .opacity(isExiting ? 0.0 : (isRevealing ? 1 : 0))
+                            .opacity(shownCard.rarity == .common ? 0.0 : (isExiting ? 0.0 : (isRevealing ? 1 : 0)))
                     }
                     .onAppear {
                         isShaking = true
@@ -44,9 +44,10 @@ struct RevealCard : View {
                     }
                     .foregroundStyle(Color("Beige"))
             }
-            .offset(x: isShaking ? 3 : -3)
+            .scaleEffect(isExiting ? 0.0 : (isRevealing ? 0.2 : 0.3))
+            .scaleEffect(isShaking ? 1 : 1.2)
             .animation(
-                .spring(duration: 0.05, bounce: 0.1)
+                .easeInOut(duration: 1)
                 .repeatForever(),
                 value: isShaking
             )

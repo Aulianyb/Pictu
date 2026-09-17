@@ -19,7 +19,7 @@ struct RevealView : View {
         ZStack {
             Color("WarmWhite")
             .ignoresSafeArea()
-            RevealCard(isShowing: $isShowing)
+            RevealCard(shownCard: shownCard, isShowing: $isShowing)
             CardBig(shownCard: shownCard, cardImage: item.image, isShowing: $isShowing)
                 .shadow(color: Color("WarmBrown").opacity(0.2), radius: 10, x: 0, y: 0)
             Text("TAP TO REVEAL")
@@ -30,7 +30,11 @@ struct RevealView : View {
                 .opacity(isShowing ? 0 : 1)
         }
         .onTapGesture {
-            isShowing = true
+            if !isShowing {
+                isShowing = true
+                SoundManager.instance.stopMusic()
+                SoundManager.instance.playSound(name: shownCard.rarity == .common ? "ShineRevealCommon" : "ShineRevealFoil")
+            }
         }
         .background(Color("WarmWhite"))
         .navigationBarBackButtonHidden(true)
@@ -57,8 +61,14 @@ struct RevealView : View {
                 .buttonStyle(.glassProminent)
                 .tint(Color("WarmBrown"))
                 .disabled(!isShowing)
+                .simultaneousGesture(TapGesture().onEnded {
+                    SoundManager.instance.playSound(name : "UIBloop")
+                })
                 Spacer()
             }
+        }
+        .onAppear{
+            SoundManager.instance.playSound(name: "FinalReveal")
         }
     }
 }
@@ -67,7 +77,7 @@ struct RevealView : View {
     let card = TradingCard(
         title: "title here",
         type: .object,
-        rarity: .prism,
+        rarity: .common,
         abilityName: "abilityName here",
         abilityDescription: "Exhaust this Land to gain 1 Mana of any color. Friendly Creatures summoned this turn gain +1 Attack and +1 Speed as long as they remain on the battlefield.",
         imageFileName: "uhh uhh imageName"

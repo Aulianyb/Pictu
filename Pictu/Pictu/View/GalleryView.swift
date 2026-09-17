@@ -51,6 +51,9 @@ struct GalleryView : View {
                 }
                 .buttonStyle(.glassProminent)
                 .tint(Color("WarmBrown"))
+                .simultaneousGesture(TapGesture().onEnded {
+                    SoundManager.instance.playSound(name : "UIBloop")
+                })
 //                NavigationLink(destination: TestView().tint(Color("WarmBrown"))){
 //                    Text("Testing page")
 //                        .font(.system(size: 17, weight: .medium, design: .rounded))

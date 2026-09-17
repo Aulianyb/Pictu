@@ -94,6 +94,9 @@ struct CardPreview: View {
                     .offset(x:55, y:10)
             }
         }
+        .simultaneousGesture(TapGesture().onEnded {
+            SoundManager.instance.playSound(name : "UIBloop")
+        })
     }
 }
 

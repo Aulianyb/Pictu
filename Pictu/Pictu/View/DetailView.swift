@@ -25,6 +25,7 @@ struct DetailView: View {
             ToolbarItem(placement: .topBarLeading) {
                 Button(action: {
                     dismiss()
+                    SoundManager.instance.playSound(name: "UIBloop")
                 }) {
                     Image(systemName: "chevron.left")
                 }

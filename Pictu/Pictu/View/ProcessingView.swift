@@ -42,6 +42,9 @@ struct ProcessingView : View {
         }
         .foregroundStyle(Color("Cream"))
         .navigationBarBackButtonHidden(true)
+        .onAppear{
+            SoundManager.instance.playSound(name : "Shimmering")
+        }
     }
 }
 

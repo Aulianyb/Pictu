@@ -103,7 +103,7 @@ struct CardStatic: View {
                 .frame(width: 326, height: 460)   // fixed window — this stays put
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .blendMode(.hardLight)
-                .opacity(0.15)
+                .opacity(shownCard.rarity != .common ? 0.15 : 0)
                 .allowsHitTesting(false)
             Image("ShineHolo")
                 .resizable(resizingMode: .tile)
@@ -114,7 +114,7 @@ struct CardStatic: View {
                 .tint(.artifactText)
                 .hueRotation(.degrees(Double(dragOffset.width + dragOffset.height) * 1.5))
                 .blendMode(.hardLight)
-                .opacity(0.5)
+                .opacity(shownCard.rarity == .prism ? 0.5 : 0.0)
                 .allowsHitTesting(false)
         }
         .compositingGroup()
