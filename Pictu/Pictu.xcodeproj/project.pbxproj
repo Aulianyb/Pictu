@@ -21,6 +21,11 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		9AAF6B16305C087000E71E63 /* Sounds */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = Sounds;
+			sourceTree = "<group>";
+		};
 		9ABD1C733052460A00F606F1 /* Pictu */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -47,6 +52,7 @@
 			children = (
 				9ABD1C733052460A00F606F1 /* Pictu */,
 				9ABD1C723052460A00F606F1 /* Products */,
+				9AAF6B16305C087000E71E63 /* Sounds */,
 			);
 			sourceTree = "<group>";
 		};
@@ -74,6 +80,7 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
+				9AAF6B16305C087000E71E63 /* Sounds */,
 				9ABD1C733052460A00F606F1 /* Pictu */,
 			);
 			name = Pictu;

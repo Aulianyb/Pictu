@@ -130,6 +130,7 @@ class CameraManager: NSObject, ObservableObject, AVCapturePhotoCaptureDelegate{
             
             // Request photo capture
             self.photoOutput.capturePhoto(with: settings, delegate: self)
+            SoundManager.instance.playSound(name: "CameraClick")
         }
     }
     

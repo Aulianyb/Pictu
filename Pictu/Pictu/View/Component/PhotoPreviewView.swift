@@ -10,30 +10,46 @@ import SwiftUI
 struct PhotoPreviewView: View {
     let item: IdentifiableImage
     let onDismiss: () -> Void
+    let onCapture: (IdentifiableImage) -> Void
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Button("Retake") {
-                    onDismiss()
+        ZStack{
+            Color("WarmWhite")
+                .ignoresSafeArea()
+            VStack(spacing: 24) {
+                Text("Is this right?")
+                    .font(.system(size: 24, weight: .medium, design: .rounded))
+                    .tracking(1)
+                    .padding(8)
+                    .foregroundStyle(Color("WarmBrown"))
+                CardCameraPreview(cardImage : item.image)
+                VStack (spacing: 8){
+                    Button() {
+                        onCapture(item)
+                        onDismiss()
+                    }
+                    label: {
+                        Text("Create my card!")
+                            .font(.system(size: 17, weight: .medium, design: .rounded))
+                            .tracking(1)
+                            .padding(8)
+                    }
+                    .buttonStyle(.glassProminent)
+                    Button() {
+                        onDismiss()
+                    }
+                    label : {
+                        Text("Nah, retake")
+                            .font(.system(size: 17, weight: .medium, design: .rounded))
+                            .tracking(1)
+                            .padding(8)
+                    }
                 }
-                .padding()
-                
-                Spacer()
-                
-                Button("Save") {
-                    UIImageWriteToSavedPhotosAlbum(item.image, nil, nil, nil)
-                    onDismiss()
-                }
-                .padding()
             }
-            .background(.ultraThinMaterial)
-            
-            Image(uiImage: item.image)
-                .resizable()
-                .scaledToFit()
-            
-            Spacer()
+            .tint(Color("WarmBrown"))
+        }
+        .onAppear{
+            SoundManager.instance.playSound(name: "TurningPage")
         }
     }
 }
