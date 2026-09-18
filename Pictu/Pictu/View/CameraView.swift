@@ -53,18 +53,32 @@ struct CameraView: View {
                     }
                 }
             }
-            
+            VStack{
+                Rectangle()
+                    .frame(height: 220)
+                Spacer()
+                Rectangle()
+                    .frame(height: 220)
+            }
+            .foregroundStyle(Color(.black))
+            .opacity(0.5)
+            .ignoresSafeArea()
             VStack {
+                Text("Only this part will be shown in the card!")
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .tracking(1)
+                    .padding(.top, 64)
+                    .foregroundStyle(Color("WarmWhite"))
                 Spacer()
                 Button {
                     cameraManager.capturePhoto()
                 } label: {
                     Circle()
-                        .strokeBorder(.white, lineWidth: 3)
+                        .strokeBorder(Color("WarmWhite"), lineWidth: 3)
                         .frame(width: 70, height: 70)
                         .overlay {
                             Circle()
-                                .fill(.white)
+                                .fill(Color("WarmWhite"))
                                 .frame(width: 60, height: 60)
                         }
                 }

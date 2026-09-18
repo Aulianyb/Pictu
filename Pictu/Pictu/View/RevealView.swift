@@ -62,7 +62,7 @@ struct RevealView : View {
                 .tint(Color("WarmBrown"))
                 .disabled(!isShowing)
                 .simultaneousGesture(TapGesture().onEnded {
-                    SoundManager.instance.playSound(name : "UIBloop")
+                    SoundManager.instance.playSound(name : "TurningPage")
                 })
                 Spacer()
             }

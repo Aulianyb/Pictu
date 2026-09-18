@@ -8,62 +8,34 @@
 import SwiftUI
 
 struct CardPreview: View {
+    @State private var hueRotationAngle: Double = 0
+    
     var shownCard : TradingCard
     var body: some View {
         NavigationLink(destination: DetailView(shownCard: shownCard)) {
             ZStack(alignment: .top){
                 VStack(spacing:16){
-                    ZStack(alignment: .top){
+                    ZStack(alignment: .bottom){
                         Image(uiImage: CardImageStore.load(fileName: shownCard.imageFileName) ?? UIImage(systemName: "photo")!)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
                             .frame(width:175, height:250)
                             .clipped()
                             .cornerRadius(8)
-//                            .overlay(
-//                                RoundedRectangle(cornerRadius: 8)
-//                                    .stroke(Color("WarmWhite"), lineWidth: 4)
-//                            )
                             .padding(.top, 10)
-                        
-//                        HStack{
-//                            Text(shownCard.title)
-//                                .font(.system(
-//                                    size: 16,
-//                                    weight: .bold,
-//                                    design:.rounded))
-//                                .tracking(1)
-//                            Spacer()
-//                        }
-//                        .frame(width:265)
-//                        .padding(.horizontal, 12)
-//                        .padding(.vertical, 8)
-//                        .background(Color("WarmWhite"))
-//                        .cornerRadius(.infinity)
+                        HStack{
+                            Text(shownCard.title.uppercased())
+                                .font(.system(
+                                    size: 12,
+                                    design:.rounded))
+                                .tracking(1)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 8)
+                        .background(Color("WarmWhite"))
+                        .cornerRadius(.infinity)
+                        .padding(.bottom, 20)
                     }
-//                    .padding(.top, 200)
-//                    VStack(alignment: .leading, spacing:4){
-//                        Text(shownCard.abilityName)
-//                            .font(.system(
-//                                size: 14,
-//                                weight: .bold,
-//                                design:.rounded))
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .tracking(1)
-//                        Text(shownCard.abilityDescription)
-//                            .font(.system(
-//                                size: 12,
-//                                weight: .light,
-//                                design:.rounded))
-//                            .tracking(1)
-//                            .frame(maxWidth: .infinity, alignment: .leading)
-//                            .fixedSize(horizontal: false, vertical: true)
-//                        Spacer()
-//                    }
-//                    .padding(12)
-//                    .frame(width:286, height:115)
-//                    .background(Color("Cream"))
-//                    .cornerRadius(8)
                 }
                 .padding(30)
                 .background(Color("Beige"))
@@ -92,6 +64,25 @@ struct CardPreview: View {
                             .rotationEffect(.degrees(15))
                     )
                     .offset(x:55, y:10)
+            }
+            .compositingGroup()
+            .overlay{
+                foilLayer
+                    .frame(width: 175, height: 243)
+                    .cornerRadius(20)
+                    .hueRotation(.degrees(hueRotationAngle))
+                    .blendMode(.softLight)
+                    .opacity(shownCard.rarity == .common ? 0.0 : 0.7)
+                Image("ShineHolo")
+                    .resizable(resizingMode: .tile)
+                    .frame(width: 175 * 2, height: 243 * 2)
+                    .scaleEffect(0.5)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .tint(.artifactText)
+                    .hueRotation(.degrees(hueRotationAngle) * 1.5)
+                    .blendMode(.hardLight)
+                    .opacity(shownCard.rarity == .prism ? 0.5 : 0.0)
+                    .allowsHitTesting(false)
             }
         }
         .simultaneousGesture(TapGesture().onEnded {

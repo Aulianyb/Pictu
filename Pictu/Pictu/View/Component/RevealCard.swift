@@ -35,17 +35,17 @@ struct RevealCard : View {
                     }
                     .onAppear {
                         isShaking = true
-                        withAnimation(.spring(duration: 0.5, bounce: 0.4)){
+                        withAnimation(.spring(duration: 1, bounce: 0.4)){
                             isRevealing = true
                         }
                         withAnimation(.linear(duration: 0.7).repeatForever(autoreverses: false)) {
                             hueRotationAngle = 360
                         }
                     }
-                    .foregroundStyle(Color("Beige"))
+                    .foregroundStyle(Color("Cream"))
             }
             .scaleEffect(isExiting ? 0.0 : (isRevealing ? 0.2 : 0.3))
-            .scaleEffect(isShaking ? 1 : 1.2)
+            .scaleEffect(isShaking ? 1 : 1.1)
             .animation(
                 .easeInOut(duration: 1)
                 .repeatForever(),

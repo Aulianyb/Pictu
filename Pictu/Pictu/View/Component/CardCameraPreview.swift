@@ -1,5 +1,5 @@
 //
-//  CardStatic.swift
+//  CardCameraPreview.swift
 //  Pictu
 //
 //  Created by Aulia Nadhirah Yasmin Badrulkamal on 17/09/26.
@@ -7,13 +7,9 @@
 
 import SwiftUI
 
-struct CardStatic: View {
-    var shownCard : TradingCard
+struct CardCameraPreview: View {
     var cardImage : UIImage
-    
-    @State private var dragOffset: CGSize = .zero
     @GestureState private var isDragging = false
-    
     var body: some View {
         ZStack(alignment: .top){
             VStack(spacing:16){
@@ -31,7 +27,7 @@ struct CardStatic: View {
                         .padding(.top, 10)
                     
                     HStack{
-                        Text(shownCard.title.uppercased())
+                        Text("")
                             .font(.system(
                                 size: 16,
                                 weight: .bold,
@@ -47,14 +43,14 @@ struct CardStatic: View {
                 }
                 .padding(.top, 20)
                 VStack(alignment: .leading, spacing:4){
-                    Text(shownCard.abilityName.uppercased())
+                    Text("")
                         .font(.system(
                             size: 14,
                             weight: .bold,
                             design:.rounded))
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .tracking(1)
-                    Text(shownCard.abilityDescription)
+                    Text("")
                         .font(.system(
                             size: 12,
                             weight: .light,
@@ -87,61 +83,15 @@ struct CardStatic: View {
             .fill(Color("Cream"))
             .frame(width: 135, height:20)
             SealShape()
-                .fill(Color(shownCard.type.typeColor))
+                .fill(Color("WarmBrown"))
                 .frame(width: 82, height:82)
                 .overlay(
-                    Image(systemName: shownCard.type.symbolName)
+                    Image(systemName: "questionmark")
                         .font(.system(size: 36))
-                        .foregroundColor(Color(shownCard.type.symbolColor))
+                        .foregroundColor(Color("WarmWhite"))
                         .rotationEffect(.degrees(15))
                 )
                 .offset(x:115, y:20)
-            foilLayer
-                .frame(width: 326 * 2.25, height: 460 * 2.25) // oversized so drag never reveals an edge
-                .rotationEffect(.degrees(Double(dragOffset.width) / 8))
-                .offset(x: dragOffset.width * 0.5, y: dragOffset.height * 0.5)
-                .frame(width: 326, height: 460)   // fixed window — this stays put
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .blendMode(.hardLight)
-                .opacity(shownCard.rarity != .common ? 0.15 : 0)
-                .allowsHitTesting(false)
-            Image("ShineHolo")
-                .resizable(resizingMode: .tile)
-                .frame(width: 326 * 4, height: 460 * 4) // oversized so drag never reveals an edge
-                .scaleEffect(0.5)
-                .frame(width: 326, height: 460)   // fixed window — this stays put
-                .clipShape(RoundedRectangle(cornerRadius: 20))
-                .tint(.artifactText)
-                .hueRotation(.degrees(Double(dragOffset.width + dragOffset.height) * 1.5))
-                .blendMode(.hardLight)
-                .opacity(shownCard.rarity == .prism ? 0.5 : 0.0)
-                .allowsHitTesting(false)
         }
-        .compositingGroup()
-        .rotation3DEffect(
-            .degrees(Double(dragOffset.width/10))
-            ,axis: (x:0, y:1, z:0)
-        )
-        .rotation3DEffect(
-            .degrees(Double(dragOffset.height/10))
-            ,axis: (x:1, y:0, z:0),
-            perspective: 0.5
-        )
-        .gesture(
-            DragGesture()
-                .onChanged{
-                    value in
-                    let maxOffset: CGFloat = 150
-                    dragOffset = CGSize(
-                        width: min(max(value.translation.width, -maxOffset), maxOffset),
-                        height: min(max(value.translation.height, -maxOffset), maxOffset)
-                    )
-                }
-                .onEnded {
-                    _ in withAnimation(.spring(response: 0.5, dampingFraction: 0.6)){
-                        dragOffset = .zero
-                    }
-            }
-        )
     }
 }

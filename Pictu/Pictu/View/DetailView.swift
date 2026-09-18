@@ -19,6 +19,16 @@ struct DetailView: View {
             CardStatic(shownCard: shownCard, cardImage: CardImageStore.load(fileName: shownCard.imageFileName) ?? UIImage(systemName: "photo")!)
                 .shadow(color: Color("WarmBrown").opacity(0.2), radius: 10, x: 0, y: 0)
                 .padding(.bottom,40)
+            VStack{
+                Image(systemName: "hand.draw.fill")
+                    .font(.system(size: 30, weight: .medium, design: .rounded))
+                    .foregroundStyle(Color("Cream"))
+                Text("Drag the card to interact!")
+                    .font(.system(size: 18, weight: .medium, design: .rounded))
+                    .tracking(1)
+                    .foregroundStyle(Color("Cream"))
+            }
+            .offset(y:-320)
         }
         .navigationBarBackButtonHidden(true)
         .toolbar {

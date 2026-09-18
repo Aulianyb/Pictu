@@ -42,7 +42,7 @@ struct CardBig: View {
                         .padding(.top, 10)
                     
                     HStack{
-                        Text(shownCard.title)
+                        Text(shownCard.title.uppercased())
                             .font(.system(
                                 size: 16,
                                 weight: .bold,
@@ -58,7 +58,7 @@ struct CardBig: View {
                 }
                 .padding(.top, 20)
                 VStack(alignment: .leading, spacing:4){
-                    Text(shownCard.abilityName)
+                    Text(shownCard.abilityName.uppercased())
                         .font(.system(
                             size: 14,
                             weight: .bold,
